@@ -11,8 +11,8 @@ ENV DEBIAN_FRONTEND=noninteractive \
     JD_VNC_DISPLAY=:0 \
     JD_START_VERBOSE=0
 
-# Vnc:
-#     tigervnc-*, novnc, websockify, openbox, xfonts-*, libssl1.1
+# VNC:
+#     tigervnc, novnc, websockify, openbox, xfonts-scalable
 # Junglediskwg:
 #     libfuse2, psmisc, libnotify4
 RUN apt-get update \
