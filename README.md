@@ -7,7 +7,17 @@ This container runs 3 applications:
 The reason for the VNC components is that the Jungle Disk strongly recommends
 using their GUI to generate the configuration file.
 
-# Examples
+# Create docker image
+1. Clone this repository
+
+        $ git clone git@github.com:jeffre/jungledisk.git
+
+2. Run docker build
+
+        $ docker build ./jungledisk -t jeffre/jungledisk
+
+
+# Run docker container
 Create a basic container
 
     $ docker run -d \
