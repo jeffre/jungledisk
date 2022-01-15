@@ -1,5 +1,5 @@
 FROM debian:11-slim
-ARG VERSION=3.32.0
+ARG VERSION=current
 
 ENV DEBIAN_FRONTEND=noninteractive \
     VERSION=${VERSION:-current} \
