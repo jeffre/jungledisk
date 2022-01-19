@@ -16,8 +16,8 @@ services:
       - JD_UID=1000
       - JD_GID=1000
     privileged: true
-# For refence, using the config below in leiu of 'priveleged: true' (above) on an
-# ubuntu docker host did NOT allow the fuse device to mount properly. 
+# For reference, using the config below in lieu of 'priveleged: true' (above) 
+# on an ubuntu docker host did NOT allow the fuse device to mount properly.
 #    devices:
 #      - /dev/fuse
 #    cap_add:
