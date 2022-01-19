@@ -2,7 +2,7 @@ FROM debian:11-slim
 ARG VERSION=current
 
 ENV DEBIAN_FRONTEND=noninteractive \
-    VERSION=${VERSION:-current} \
+    VERSION=${VERSION} \
     JD_UID=1000 \
     JD_GID=1000 \
     JD_NOVNC_PORT=6080 \
