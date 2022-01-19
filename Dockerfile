@@ -24,6 +24,7 @@ RUN apt-get update \
         websockify \
         openbox \
         xfonts-scalable \
+        fuse \
         libfuse2 \
         psmisc \
         libnotify4 \
@@ -33,12 +34,16 @@ RUN apt-get update \
 
 COPY start.sh get-jungledisk.sh /usr/local/bin/
 
-# Make jungledisk user
+# Create groups
+# Create user
+# Permit fuse devices to be read by other users (user_allow_other)
 # Create ~/.local/share to resolve gtk warnings about writing to 
 #   recently-used.xbel
 # Install jungledisk app
 RUN groupadd -g "$JD_GID" "jungledisk" \
-    && useradd -u "$JD_UID" -g "jungledisk" -ms /bin/bash "jungledisk" \
+    && groupadd "fuse" \
+    && useradd -u "$JD_UID" -g "jungledisk" -G "fuse" -ms "/bin/bash" "jungledisk" \
+    && echo "user_allow_other" >> /etc/fuse.conf \
     && gosu jungledisk mkdir -p "/home/jungledisk/.local/share" \
     && get-jungledisk.sh
 
