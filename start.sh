@@ -68,7 +68,18 @@ gosu jungledisk websockify -D --web=/usr/share/novnc/ --cert="$novnccert" \
     "$JD_NOVNC_PORT" "localhost:$JD_VNC_PORT"
 
 
+# Check if any arguments (such as docker CMD) were provided to this script
+if [ $# -gt 0 ]; then
 
+  # [jungledisk] Background start jungledisk app
+  gosu jungledisk /usr/local/bin/jungledisk &
 
-# [jungledisk] Foreground start jungledisk app
-exec gosu jungledisk /usr/local/bin/jungledisk
+  # Run provided arguments as foreground app
+  exec gosu jungledisk "$@"
+
+else
+
+  # [jungledisk] Foreground start jungledisk app
+  exec gosu jungledisk /usr/local/bin/jungledisk
+
+fi
