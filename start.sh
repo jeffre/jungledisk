@@ -38,7 +38,8 @@ gosu jungledisk tigervncserver -kill "$JD_VNC_DISPLAY"
 export DISPLAY="$JD_VNC_DISPLAY"
 
 # [vnc] Start VNC
-gosu jungledisk tigervncserver -SecurityTypes VncAuth,TLSVnc "$JD_VNC_DISPLAY"
+gosu jungledisk tigervncserver -SecurityTypes VncAuth,TLSVnc -rfbport \
+    "$JD_VNC_PORT" "$JD_VNC_DISPLAY"
 
 
 # [noVNC] Self-signed ssl certificate
@@ -54,7 +55,8 @@ fi
 
 # [noVNC] Generate self-signed certificate
 if [ ! -f "$novnccert" ]; then
-  openssl req -x509 -nodes -newkey rsa:2048 -keyout "$novnccert" -out "$novnccert" -days 365 -subj "/CN=jungledisk"
+  openssl req -x509 -nodes -newkey rsa:2048 -keyout "$novnccert" -out \
+      "$novnccert" -days 365 -subj "/CN=jungledisk"
 fi
 
 # [noVNC] Take exclusive ownership of certificate
@@ -62,7 +64,10 @@ chown jungledisk:jungledisk "$novnccert"
 chmod 600 "$novnccert"
 
 # [noVNC] Background daemonize noVNC startup
-gosu jungledisk websockify -D --web=/usr/share/novnc/ --cert="$novnccert" "$JD_NOVNC_PORT" "localhost:$JD_VNC_PORT"
+gosu jungledisk websockify -D --web=/usr/share/novnc/ --cert="$novnccert" \
+    "$JD_NOVNC_PORT" "localhost:$JD_VNC_PORT"
+
+
 
 
 # [jungledisk] Foreground start jungledisk app
